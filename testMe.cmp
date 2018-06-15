@@ -13,4 +13,22 @@
             
         </lightning:accordion>
     </lightning:card>
+    
+    <lightning:card title="Radio test">
+        <fieldset class="slds-form-element">
+            <legend class="slds-form-element__legend slds-form-element__label">Radio Group Label</legend>
+            <div class="slds-form-element__control">
+                <aura:iteration items="a,b,c,d,e" indexVar="idx">
+                    <span class="slds-radio">
+                        <input type="radio" id="{! 'radio-' +idx }" value="{! 'radio-' + idx}" name="options" />
+                        <label class="slds-radio__label" for="{!'radio-' + idx}">
+                            <span class="slds-radio_faux"></span>
+                            <span class="slds-form-element__label">Radio Label {!idx} can have <strong>bold</strong> text </span>
+                        	<lightning:helptext content="{!'more info for button ' + idx}"/>
+                        </label>
+                    </span>
+                </aura:iteration>
+            </div>
+        </fieldset>
+    </lightning:card>
 </aura:component>
