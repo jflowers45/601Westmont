@@ -1,0 +1,16 @@
+<aura:component controller="AwInstructorsNavigation" extends="c:Base" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="classes" type="Object[]" />
+    <lightning:card title="testing">
+        Stuff <BR />
+        <lightning:accordion >
+            <aura:iteration items="{!v.classes}" var="item" indexVar="i">
+                <lightning:accordionSection label="{!item.Name + ' ' + i}" name="{section-' + }">
+                    content of {!item.Name} section 
+                    <lightning:button  value="{!i}" label="{! 'btn-'+ i}" onclick="{!c.onClick}" /> 
+                </lightning:accordionSection> 
+            </aura:iteration>
+            
+        </lightning:accordion>
+    </lightning:card>
+</aura:component>
