@@ -1,34 +1,49 @@
 <aura:component controller="AwInstructorsNavigation" extends="c:Base" implements="flexipage:availableForAllPageTypes" access="global" >
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="classes" type="Object[]" />
+    
     <lightning:card title="testing">
         Stuff <BR />
         <lightning:accordion >
-            <aura:iteration items="{!v.classes}" var="item" indexVar="i">
-                <lightning:accordionSection label="{!item.Name + ' ' + i}" name="{section-' + }">
-                    content of {!item.Name} section 
-                    <lightning:button  value="{!i}" label="{! 'btn-'+ i}" onclick="{!c.onClick}" /> 
+            <aura:iteration items="{!v.classes}" var="item" indexVar="accordionIndex">
+                <lightning:accordionSection label="{!item.Name}" name="{section-' + accordionIndex}">
+                    
+                    content of {!item.Name} section which has accordionIndex {!accordionIndex} <BR />
+                    
+                    <lightning:card title="{! 'Radio group ' + accordionIndex}">
+                        <fieldset class="slds-form-element">
+                            <legend class="slds-form-element__legend slds-form-element__label">Radio Group Label</legend>
+                            <div class="slds-form-element__control">
+                                <aura:iteration items="Incomplete,Complete,Unknown" indexVar="radioButtonIndex" var="status">
+                                    <span class="slds-radio">
+                                        
+                                        <!-- 
+											note the use of data-status as opposed to just status for attribute name. Allows easy access to the value in controller.
+											Also, for some unknown reason, if I used the naming convention group-index1-index2 it failed, but i was ok using a single dash
+										-->
+                                        
+                                        <input type="radio" 
+                                               id="{! 'group' + accordionIndex + '-' + radioButtonIndex}"  
+                                               value="{! 'group' + accordionIndex + '-' + radioButtonIndex}" 
+                                               name="{! 'options'+accordionIndex}" 
+                                               onclick="{!c.onRadioClick}"
+                                               data-status="{!status}"/> 
+                                        
+                                        <label class="slds-radio__label" for="{! 'group' + accordionIndex + '-' + radioButtonIndex}">
+                                            <span class="slds-radio_faux"></span>
+                                            <span class="slds-form-element__label">{!status} (Radio Label {!radioButtonIndex} in group {!accordionIndex} can <strong>be</strong> nicely <em>formatted</em>!!)</span>
+                                            <lightning:helptext content="{!'more info for button ' + radioButtonIndex}"/>
+                                        </label>
+                                    </span>
+                                </aura:iteration>
+                            </div>
+                        </fieldset>
+                    </lightning:card>
+                    
                 </lightning:accordionSection> 
+                    
             </aura:iteration>
             
         </lightning:accordion>
-    </lightning:card>
-    
-    <lightning:card title="Radio test">
-        <fieldset class="slds-form-element">
-            <legend class="slds-form-element__legend slds-form-element__label">Radio Group Label</legend>
-            <div class="slds-form-element__control">
-                <aura:iteration items="a,b,c,d,e" indexVar="idx">
-                    <span class="slds-radio">
-                        <input type="radio" id="{! 'radio-' +idx }" value="{! 'radio-' + idx}" name="options" />
-                        <label class="slds-radio__label" for="{!'radio-' + idx}">
-                            <span class="slds-radio_faux"></span>
-                            <span class="slds-form-element__label">Radio Label {!idx} can have <strong>bold</strong> text </span>
-                        	<lightning:helptext content="{!'more info for button ' + idx}"/>
-                        </label>
-                    </span>
-                </aura:iteration>
-            </div>
-        </fieldset>
     </lightning:card>
 </aura:component>
