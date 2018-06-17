@@ -4,15 +4,23 @@
             component,
             "c.getCertifications",
             function(response) {  
+                for (var i=0; i< response.length; i++) {
+                    response[i].className = response[i].Name;
+                }
                 component.set('v.classes', response);
             }, {
             }
         );
     },
-    onClick:function(component,event,helper) {
-        var btnId = event.getSource().get("v.value");
+    
+    onRadioClick:function(component,event,helper) {
+        var btnId = event.currentTarget.getAttribute('value');
+        var status = event.currentTarget.getAttribute('data-status');
+        btnId = btnId.replace("group","");
+        var idArray = btnId.split("-");
+        var accordionIndex = idArray[0];
         var classes = component.get('v.classes');
-        classes[btnId].Name = classes[btnId].Name + " Changed";
+        classes[accordionIndex].Name = classes[accordionIndex].className + " (" + status + ")";
         component.set('v.classes', classes);
     }
 })
