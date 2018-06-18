@@ -1,0 +1,22 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="classes" type="Object[]" />
+    test
+    <lightning:card title="auto sorting rows">
+         
+        <table>
+            <tr>
+                <th>Delivery Date</th>
+                <th>Class</th>
+                <th>instructor</th>
+            </tr>
+            <aura:iteration items="{!v.classes}" var="class">
+                <tr>
+                    <td><lightning:input type="date" value="{!class.deliveryDate}" label="Date" variant="label-hidden" onchange="{!c.dateChange}"  /></td>
+                    <td>{!class.className}</td>
+                    <td>{!class.instructor}</td>
+                </tr>
+            </aura:iteration>
+        </table>
+    </lightning:card>
+</aura:component>
